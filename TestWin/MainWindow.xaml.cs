@@ -1,22 +1,12 @@
 ﻿using Gigasoft.ProEssentials.Enums;
 using Microsoft.Win32;
-using SortierAlgorithmen;
 using Statistik;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace TestWin
 {
@@ -92,7 +82,7 @@ namespace TestWin
                 // v7.2 new features //
                 Pesgo.PePlot.Option.PointGradientStyle = PlotGradientStyle.VerticalAscentInverse;
                 Pesgo.PeColor.PointBorderColor = Color.FromArgb(100, 0, 20, 0);
-               // Pesgo.PePlot.Option.LineSymbolThickness = 3;
+                // Pesgo.PePlot.Option.LineSymbolThickness = 3;
                 Pesgo.PePlot.Option.AreaBorder = 1;
                 Pesgo.PeData.Points = flo.Count;
                 Pesgo.PeData.Subsets = 1;
@@ -109,12 +99,16 @@ namespace TestWin
                 Pesgo.PePlot.Option.LineSymbolThickness = 3;
                 Pesgo.PePlot.Option.AreaBorder = 1;
                 Pesgo.PeUserInterface.Dialog.AllowSvgExport = true;
+
+                // Enable DateTimeMode //
+                Pesgo.PeData.DateTimeMode = true;
                 Pesgo.PeData.UsingXDataii = true;
-  
                 Pesgo.PeData.StartTime = tt[0].ToOADate();
+
                 for (int i = 0; i < flo.Count; i++)
                 {
                     Pesgo.PeData.Y[0, i] = (float)flo[i];
+                    //Pesgo.PeData.X[0, i] = i;
                     Pesgo.PeData.Xii[0, i] = tt[i].ToOADate();
                     //Pesgo.PeData.Y[1, i] = (float)flo[i];
                 }
@@ -122,7 +116,7 @@ namespace TestWin
                 Pesgo.PeConfigure.AntiAliasGraphics = true;
                 Pesgo.PeConfigure.AntiAliasText = true;
 
-                Pesgo.PeGrid.Option.YearMonthDayPrompt = YearMonthDayPrompt.InsideTop;
+                //Pesgo.PeGrid.Option.YearMonthDayPrompt = YearMonthDayPrompt.InsideTop;
 
                 // Optional related properties ...
                 // PeGrid.Option.TimeLabelType
@@ -130,8 +124,7 @@ namespace TestWin
                 // PeGrid.Option.MonthLabelType
                 // PeGrid.Option.YearLabelType
 
-                // Enable DateTimeMode //
-                Pesgo.PeData.DateTimeMode = true;
+
                 Pesgo.PeFunction.ReinitializeResetImage();
             }
             Pesgo.Invalidate();
@@ -139,6 +132,7 @@ namespace TestWin
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            re.Text = string.Empty;
             set = false;
             var ofd = new OpenFileDialog();
             ofd.Filter = "*.csv|*.csv";
@@ -153,7 +147,7 @@ namespace TestWin
             foreach (string line in lines)
             {
                 var spl = line.Split(',');
-                var str = spl[2].Replace("\"","");
+                var str = spl[2].Replace("\"", "");
                 if (double.TryParse(str, out dd))
                     flo.Add(dd);
                 str = spl[1].Replace("\"", "");
@@ -161,6 +155,11 @@ namespace TestWin
                     tt.Add(oo);
             }
 
+            //flo = new List<double>();
+            // for (int i = 0; i < 2500; i++)
+            // {
+            //      flo.Add(rnd.NextDouble());
+            //  }
             var foo = new Statistik.Statistik();
             foo.RunCalculationReady -= Foo_RunCalculationReady;
             foo.RunCalculationReady += Foo_RunCalculationReady;
@@ -176,31 +175,44 @@ namespace TestWin
             test = flo.ToArray();
 
             var qs = new QuickSort(test);
-            var bar = qs.SortIt();
+            foo.Stats = qs;
+            var sortedData = foo.RunCalculation();
 
-           // flo = bar.ToList();
+            // flo = bar.ToList();
 
             foo.Stats = new Median(test);
-            foo.SetSortedData(bar);
+            foo.SetSortedData(sortedData);
             foo.RunCalculationAsync();
 
             foo.Stats = new Spannweite(test);
-            foo.SetSortedData(bar);
+            foo.SetSortedData(sortedData);
             foo.RunCalculationAsync();
 
 
 
             foo.Stats = new InterQuartilsAbstand(test);
-            foo.SetSortedData(bar);
+            foo.SetSortedData(sortedData);
             foo.RunCalculationAsync();
 
             foo.Stats = new ArithmetischesMittel(test);
-            foo.SetSortedData(bar);
+            foo.SetSortedData(sortedData);
             foo.RunCalculationAsync();
 
             foo.Stats = new StandardAbweichung(test);
             foo.RunCalculationAsync();
 
+            var perzent = new Perzentile(test);
+            perzent.SetPerzentil(25);
+            foo.Stats = perzent;
+            foo.SetSortedData(sortedData);
+            foo.RunCalculationAsync();
+
+            var perzent2 = new Perzentile();
+            perzent2.SetPerzentil(75);
+            foo.Stats = perzent2;
+            foo.SetData(test);
+            foo.SetSortedData(sortedData);
+            foo.RunCalculationAsync();
         }
     }
 }

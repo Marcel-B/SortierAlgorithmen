@@ -100,10 +100,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SortierAlgorithmen\SortierAlgorithmen.csproj">
-      <Project>{73819749-16EF-4266-B031-A27828163FDE}</Project>
-      <Name>SortierAlgorithmen</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Statistik\Statistik.csproj">
       <Project>{d6d84718-7c47-4adf-b943-011f4469dcf1}</Project>
       <Name>Statistik</Name>

@@ -1,5 +1,4 @@
-﻿using SortierAlgorithmen;
-using System;
+﻿using System;
 
 namespace Statistik
 {
@@ -33,7 +32,6 @@ namespace Statistik
 
         public double[] Calculate()
         {
-
             double[] res = new double[4];
             double unteresQuartil;
             double oberesQuartil;
@@ -41,7 +39,7 @@ namespace Statistik
             if (SortedData == null)
             {
                 var sort = new QuickSort(Data);
-                SortedData = sort.SortIt();
+                SortedData = sort.Calculate();
             }
 
             int n = SortedData.Length;

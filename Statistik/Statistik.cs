@@ -30,18 +30,20 @@ namespace Statistik
         }
         public async void RunCalculationAsync()
         {
-            Console.WriteLine("Start");
+            Console.WriteLine("Start " + Stats.ToString());
             var sender = Stats.ToString();
             var result = await Task<double[]>.Factory.StartNew(Stats.Calculate);
             OnRunCalculationReady(new CalculationReadyEventArgs() { Result = result, Sender = sender });
         }
-
-   
-
+        public double[] RunCalculation()
+        {
+            return Stats.Calculate();
+        }
         public void OnRunCalculationReady(CalculationReadyEventArgs e)
         {
-            Console.WriteLine("RDY");
+            Console.WriteLine("End " + Stats.ToString());
             RunCalculationReady?.Invoke(this, e);
         }
+
     }
 }

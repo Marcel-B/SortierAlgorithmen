@@ -12,7 +12,7 @@
                 >
             GO!
         </Button>
-            <TextBlock Height="80"  DockPanel.Dock="Top" x:Name="re" TextWrapping="Wrap" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+            <TextBlock DockPanel.Dock="Top" x:Name="re" TextWrapping="Wrap" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
         <ProEssentials:PesgoWpf x:Name="Pesgo"/>
     </DockPanel>
 </Window>

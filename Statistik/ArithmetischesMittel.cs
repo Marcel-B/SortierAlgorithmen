@@ -41,14 +41,13 @@ namespace Statistik
             else
                 throw new NullReferenceException();
         }
-        public override string ToString()
-        {
-            return "Arithmetisches Mittel";
-        }
-
         public void SetSortedData(double[] Data)
         {
             this.Data = Data;
+        }
+        public override string ToString()
+        {
+            return "Arithmetisches Mittel";
         }
     }
 }

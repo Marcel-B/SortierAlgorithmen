@@ -2,30 +2,39 @@
 
 namespace Statistik
 {
-    public class Spannweite : IStats
+    public class Perzentile : IStats
     {
         public double[] Data { get; private set; }
         public double[] ResultData { get; private set; }
         public double[] SortedData { get; private set; }
+        public double Perzentil { get; private set; }
+        public Perzentile() { Perzentil = 25; }
+        public Perzentile(double[] Data) : this() { SetData(Data); }
 
-        public Spannweite() { }
-        public Spannweite(double[] Data) { SetData(Data); }
         public double[] Calculate()
         {
+            double[] res = new double[1];
+            int pos, n = Data.Length;
+
             if (SortedData == null)
             {
                 var sort = new QuickSort(Data);
                 SortedData = sort.Calculate();
             }
-            double[] rd = new double[1];
-            rd[0] = SortedData[SortedData.Length - 1] - SortedData[0];
-            ResultData = rd;
-            return rd;
+            if ((Perzentil * (n / 100)) % 2 == 0)
+            {
+                pos = (int)(Perzentil * (n / 100));
+                res[0] = (SortedData[pos] + SortedData[pos - 1]);
+                res[0] /= 2;
+            }
+            else
+            {
+                pos = (int)(Perzentil * (n / 100));
+                res[0] = SortedData[pos];
+            }
+            return res;
         }
-        public void SetSortedData(double[] Data)
-        {
-            SortedData = Data;
-        }
+
         public double[] GetData()
         {
             if (Data != null)
@@ -46,9 +55,18 @@ namespace Statistik
         {
             this.Data = Data;
         }
+
+        public void SetSortedData(double[] Data)
+        {
+            SortedData = Data;
+        }
+        public void SetPerzentil(double Perzentil)
+        {
+            this.Perzentil = Perzentil;
+        }
         public override string ToString()
         {
-            return "Spannweite";
+            return "Perzentil " + Perzentil;
         }
     }
 }

@@ -45,16 +45,12 @@
     <Compile Include="IStats.cs" />
     <Compile Include="Median.cs" />
     <Compile Include="InterQuartilsAbstand.cs" />
+    <Compile Include="Perzentile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuickSort.cs" />
     <Compile Include="Spannweite.cs" />
     <Compile Include="StandardAbweichung.cs" />
     <Compile Include="Statistik.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SortierAlgorithmen\SortierAlgorithmen.csproj">
-      <Project>{73819749-16EF-4266-B031-A27828163FDE}</Project>
-      <Name>SortierAlgorithmen</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
