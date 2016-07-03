@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Statistik
 {
@@ -6,6 +7,7 @@ namespace Statistik
     {
         public double[] Data { get; private set; }
         public double[] ResultData { get; private set; }
+
         public ArithmetischesMittel() { }
         public ArithmetischesMittel(double[] Data) { SetData(Data); }
         public void SetData(double[] Data)
@@ -38,6 +40,15 @@ namespace Statistik
                 return ResultData;
             else
                 throw new NullReferenceException();
+        }
+        public override string ToString()
+        {
+            return "Arithmetisches Mittel";
+        }
+
+        public void SetSortedData(double[] Data)
+        {
+            this.Data = Data;
         }
     }
 }

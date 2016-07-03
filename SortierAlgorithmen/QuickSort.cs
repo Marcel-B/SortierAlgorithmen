@@ -3,6 +3,8 @@
     public class QuickSort
     {
         public double[] data { get; private set; }
+        public double[] sorted { get; private set; }
+
 
         public QuickSort() { }
 
@@ -15,8 +17,14 @@
 
         public double[] SortIt()
         {
-            GoQuickSort(0, data.Length - 1);
-            return data;
+            sorted = new double[data.Length];
+            for (int i = 0; i < data.Length; i++)
+            {
+                sorted[i] = data[i];
+            }
+
+            GoQuickSort(0, sorted.Length - 1);
+            return sorted;
         }
         private void GoQuickSort(int links, int rechts)
         {
@@ -33,29 +41,29 @@
             int i = links;
             // Starte mit j links vom Pivotelement
             int j = rechts - 1;
-            double pivot = data[rechts];
+            double pivot = sorted[rechts];
             do
             {
                 // Suche von links ein Element, welches größer als das Pivotelement ist
-                while (data[i] <= pivot && i < rechts)
+                while (sorted[i] <= pivot && i < rechts)
                     i++;
                 // Suche von rechts ein Element, welches kleiner als das Pivotelement ist
-                while (data[j] >= pivot && j > links)
+                while (sorted[j] >= pivot && j > links)
                     j--;
                 if (i < j)
                 {
-                    tmp = data[i];
-                    data[i] = data[j];
-                    data[j] = tmp;
+                    tmp = sorted[i];
+                    sorted[i] = sorted[j];
+                    sorted[j] = tmp;
                 }
             } while (i < j); // solange i an j nicht vorbeigelaufen ist 
 
             // Tausche Pivotelement (daten[rechts]) mit neuer endgültiger Position (daten[i])
-            if (data[i] > pivot)
+            if (sorted[i] > pivot)
             {
-                tmp = data[i];
-                data[i] = data[rechts];
-                data[rechts] = tmp;
+                tmp = sorted[i];
+                sorted[i] = sorted[rechts];
+                sorted[rechts] = tmp;
             }
             // gib die Position des Pivotelements zurück
             return i;

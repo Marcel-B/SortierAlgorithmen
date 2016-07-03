@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Statistik
 {
-    interface IStats
+    public interface IStats
     {
         void SetData(double[] Data);
+        void SetSortedData(double[] Data);
         double[] GetData();
         double[] GetResult();
         double[] Calculate();
+        //void Calculate();
     }
 }

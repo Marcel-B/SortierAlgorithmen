@@ -7,6 +7,7 @@ namespace Statistik
     {
         public double[] Data { get; private set; }
         public double[] ResultData { get; private set; }
+        public double[] SortedData { get; private set; }
 
         public Median() { }
         public Median(double[] Data) { SetData(Data); }
@@ -17,19 +18,22 @@ namespace Statistik
         public double[] Calculate()
         {
             double[] result = new double[1];
-            var quick = new QuickSort(Data);
-            var data = quick.SortIt();
-            var len = data.Length;
+            if (SortedData == null)
+            {
+                var quick = new QuickSort(Data);
+                SortedData = quick.SortIt();
+            }
+            var len = SortedData.Length;
             if(len % 2 == 0)
             {
                 len /= 2;
-                result[0] = (data[len] + data[len - 1]);
+                result[0] = (SortedData[len] + SortedData[len - 1]);
                 result[0] /= 2;
             }
             else
             {
                 len /= 2;
-                result[0] = data[len];
+                result[0] = SortedData[len];
             }
             ResultData = result;
             return result;
@@ -49,6 +53,14 @@ namespace Statistik
                 return ResultData;
             else
                 throw new NullReferenceException();
+        }
+        public void SetSortedData(double[] Data)
+        {
+            SortedData = Data;
+        }
+        public override string ToString()
+        {
+            return "Median";
         }
     }
 }
