@@ -3,12 +3,16 @@
     public class QuickSort
     {
         public double[] data { get; private set; }
+
         public QuickSort() { }
+
         public QuickSort(double[] data) : this() { SetData(data); }
+
         public void SetData(double[] data)
         {
             this.data = data;
         }
+
         public double[] SortIt()
         {
             GoQuickSort(0, data.Length - 1);

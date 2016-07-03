@@ -15,7 +15,7 @@ namespace SortierAlgorithmen
             List<double> ddd = new List<double>();
             for (int i = 0; i < 50; i++)
             {
-                ddd.Add(rnd.NextDouble());
+                ddd.Add(rnd.Next());
                 Console.WriteLine(ddd[i]);
             }
             Console.WriteLine("=======================");
