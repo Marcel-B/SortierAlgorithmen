@@ -20,6 +20,7 @@ namespace SortierAlgorithmen
             }
             Console.WriteLine("=======================");
             dok.SetData(ddd.ToArray());
+            dok.SetData(new double[] { 5, 6, 9, 7, 1, 5 });
             var result = dok.SortIt();
             for (int i = 0; i < result.Length; i++)
             {

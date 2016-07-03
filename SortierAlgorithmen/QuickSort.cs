@@ -1,6 +1,6 @@
 ﻿namespace SortierAlgorithmen
 {
-    class QuickSort
+    public class QuickSort
     {
         public double[] data { get; private set; }
         public QuickSort() { }
@@ -14,7 +14,7 @@
             GoQuickSort(0, data.Length - 1);
             return data;
         }
-        public void GoQuickSort(int links, int rechts)
+        private void GoQuickSort(int links, int rechts)
         {
             if (links < rechts)
             {
@@ -23,7 +23,7 @@
                 GoQuickSort(teiler + 1, rechts);
             }
         }
-        public int Teile(int links, int rechts)
+        private int Teile(int links, int rechts)
         {
             double tmp;
             int i = links;
