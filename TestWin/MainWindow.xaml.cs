@@ -198,6 +198,9 @@ namespace TestWin
             foo.SetSortedData(bar);
             foo.RunCalculationAsync();
 
+            foo.Stats = new StandardAbweichung(test);
+            foo.RunCalculationAsync();
+
         }
     }
 }
