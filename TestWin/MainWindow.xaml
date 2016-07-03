@@ -13,6 +13,6 @@
             GO!
         </Button>
             <TextBlock Height="80"  DockPanel.Dock="Top" x:Name="re" TextWrapping="Wrap" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
-        <ProEssentials:PegoWpf x:Name="Pesgo"/>
+        <ProEssentials:PesgoWpf x:Name="Pesgo"/>
     </DockPanel>
 </Window>
