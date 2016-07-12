@@ -19,6 +19,10 @@ namespace TestWin
         bool set = false;
         List<double> flo;
         List<DateTime> tt;
+        float _Median;
+        float _Standard;
+        float _Avg;
+        int cnt = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,8 +44,22 @@ namespace TestWin
                 sb.Append(res[i] + " ");
             }
             re.Text += e.Sender + ": " + sb.ToString() + Environment.NewLine;
-
-            if (!set)
+            if (e.Sender.Equals("Median"))
+            {
+                _Median = (float)res[0];
+                cnt++;
+            }
+            else if(e.Sender.Equals("Standardabweichung"))
+            {
+                _Standard = (float)res[0];
+                cnt++;
+            }
+            else if(e.Sender.Equals("Arithmetisches Mittel"))
+            {
+                _Avg = (float)res[0];
+                cnt++;
+            }
+            if (cnt > 2 && !set)
             {
                 set = true;
                 // Enable MouseWheel Zooming
@@ -99,6 +117,42 @@ namespace TestWin
                 Pesgo.PePlot.Option.LineSymbolThickness = 3;
                 Pesgo.PePlot.Option.AreaBorder = 1;
                 Pesgo.PeUserInterface.Dialog.AllowSvgExport = true;
+
+
+                // Annotations
+                Pesgo.PeAnnotation.InFront = true;
+                Pesgo.PeAnnotation.Line.TextSize = 110;
+                Pesgo.PeAnnotation.Show = true;
+                Pesgo.PeAnnotation.Line.YAxis[0] = _Avg;
+                Pesgo.PeAnnotation.Line.YAxisType[0] = LineAnnotationType.MediumSolid;
+                Pesgo.PeAnnotation.Line.YAxisColor[0] = Color.FromArgb(128, 0, 255, 0);
+                Pesgo.PeAnnotation.Line.YAxisText[0] = "AVG";
+                Pesgo.PeAnnotation.Line.YAxisAxis[0] = 0;
+                Pesgo.PeAnnotation.Line.YAxisInFront[0] = AnnotationInFront.InFront;
+
+
+                Pesgo.PeAnnotation.Line.YAxis[1] = _Avg + _Standard;
+                Pesgo.PeAnnotation.Line.YAxisType[1] = LineAnnotationType.MediumSolid;
+                Pesgo.PeAnnotation.Line.YAxisColor[1] = Color.FromArgb(128, 0, 255, 0);
+                Pesgo.PeAnnotation.Line.YAxisText[1] = "+ Standard";
+                Pesgo.PeAnnotation.Line.YAxisAxis[1] = 0;
+                Pesgo.PeAnnotation.Line.YAxisInFront[1] = AnnotationInFront.InFront;
+
+
+                Pesgo.PeAnnotation.Line.YAxis[2] = _Avg - _Standard;
+                Pesgo.PeAnnotation.Line.YAxisType[2] = LineAnnotationType.MediumSolid;
+                Pesgo.PeAnnotation.Line.YAxisColor[2] = Color.FromArgb(128, 0, 255, 0);
+                Pesgo.PeAnnotation.Line.YAxisText[2] = "- Standard";
+                Pesgo.PeAnnotation.Line.YAxisAxis[2] = 0;
+                Pesgo.PeAnnotation.Line.YAxisInFront[2] = AnnotationInFront.InFront;
+
+                Pesgo.PeAnnotation.Line.YAxis[3] = _Median;
+                Pesgo.PeAnnotation.Line.YAxisType[3] = LineAnnotationType.ThinSolid;
+                Pesgo.PeAnnotation.Line.YAxisColor[3] = Color.FromArgb(128, 0, 255, 0);
+                Pesgo.PeAnnotation.Line.YAxisText[3] = "Median";
+                Pesgo.PeAnnotation.Line.YAxisAxis[3] = 0;
+                Pesgo.PeAnnotation.Line.YAxisInFront[3] = AnnotationInFront.InFront;
+
 
                 // Enable DateTimeMode //
                 Pesgo.PeData.DateTimeMode = true;
